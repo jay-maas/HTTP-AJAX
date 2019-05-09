@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link, Route } from 'react-router-dom';
+import axios from 'axios';
 
 const FriendWrapper = styled.div`
     width: 50%;
@@ -40,13 +42,25 @@ const EmailWrapper = styled.div`
 `
 
 class Friend extends React.Component {
+    clickHandler = () => {
+        let friend = this.props.friend
+        console.log(friend)
+        this.props.setActiveFriend(friend)
+    }
+
     render(){
-        const {age, email, name} = this.props.friend
+        const {age, email, name, id} = this.props.friend
         return(
             <FriendWrapper>
-            <NameWrapper>{name}</NameWrapper>
+            <Link
+            onClick={this.clickHandler} 
+            exact to={`/friends/${id}`}
+            style={{color: "white", textDecoration: "none"}}>
+            <NameWrapper>{name}</NameWrapper></Link>
             <AgeWrapper>Age: {age}</AgeWrapper>
             <EmailWrapper>email: {email}</EmailWrapper>
+            <button>Update Friend</button>
+            <button>Delete Friend</button>
             </FriendWrapper>
         )
     }

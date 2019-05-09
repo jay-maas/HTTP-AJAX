@@ -56,8 +56,9 @@ class NewFriendFrom extends React.Component {
     }
 
     addFriend = event => {
-        // event.preventDefault();
+        event.preventDefault()
         this.props.addFriend(this.state.friend)
+        this.props.history.push("/")
     }
 
     render(){

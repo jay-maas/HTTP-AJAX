@@ -2,13 +2,20 @@ import React from 'react';
 import './App.css';
 import axios from 'axios';
 import Friends from './Components/Friends/Friends';
+import Friend from './Components/Friends/Friend';
 import NewFriendForm from './Components/Friends/NewFriendForm';
+import { Link, Route, withRouter } from 'react-router-dom';
 
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      friends: []
+      friends: [],
+      activeFriend: {
+        name: "test",
+        age: 5,
+        email: "test"
+      }
     }
   }
   componentDidMount() {
@@ -39,14 +46,42 @@ class App extends React.Component {
       })
   }
 
+  setActiveFriend = friend => {
+    this.setState({
+      activeFriend: friend
+    })
+  }
+
   render() {
     return (
       <>
-      <NewFriendForm addFriend={this.addFriend}/>
-        <Friends friendList={this.state.friends}/>
+      <Link 
+      to="/addFriend">
+      Add A Friend
+      </Link>
+
+      <Route 
+      exact path="/"
+      render={props => <Friends {...props}friendList={this.state.friends} 
+      setActiveFriend={this.setActiveFriend}
+      />} 
+        />
+
+      <Route 
+      path="/addFriend" 
+      render={props => <NewFriendForm {...props} addFriend={this.addFriend} />}
+       />
+
+      <Route 
+      path="/friends/:id" 
+      render={props => <Friend {...props} friend={this.state.activeFriend} setActiveFriend={this.setActiveFriend}
+      />}
+       />
       </>
     );
   }
 }
 
-export default App;
+const AppWithRouter = withRouter(App)
+
+export default AppWithRouter;
