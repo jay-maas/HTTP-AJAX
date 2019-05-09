@@ -41,11 +41,29 @@ const EmailWrapper = styled.div`
     }
 `
 
+const StyledButton = styled.button`
+    border-radius: 25px;
+    border: 1px dashed black;
+    width: 30vw;
+    height: auto;
+    background: blue;
+    color: white;
+    font-size: 1.5em;
+    margin: 5%;
+`
+
 class Friend extends React.Component {
     clickHandler = () => {
         let friend = this.props.friend
         console.log(friend)
         this.props.setActiveFriend(friend)
+    }
+
+    deleteFriend = event => {
+        event.preventDefault()
+        console.log(event.target.id)
+        this.props.deleteFriend(event.target.id)
+        window.location.reload()
     }
 
     render(){
@@ -59,8 +77,11 @@ class Friend extends React.Component {
             <NameWrapper>{name}</NameWrapper></Link>
             <AgeWrapper>Age: {age}</AgeWrapper>
             <EmailWrapper>email: {email}</EmailWrapper>
-            <button>Update Friend</button>
-            <button>Delete Friend</button>
+            <Link 
+            exact to={'/update-form'}
+            onClick={this.clickHandler}
+            ><StyledButton>Update Friend</StyledButton></Link>
+            <StyledButton onClick={this.deleteFriend} id={id}>Delete Friend</StyledButton>
             </FriendWrapper>
         )
     }

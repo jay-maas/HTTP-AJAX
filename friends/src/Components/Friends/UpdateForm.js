@@ -33,13 +33,19 @@ const StyledButton = styled.button`
     font-size: 2em;
 `
 
-class NewFriendFrom extends React.Component {
-    state ={
-        friend: {
-            name: "",
-            age: "",
-            email: ""
+class UpdateFriendFrom extends React.Component {
+    constructor(props) {
+        super(props)
+
+        this.state ={
+            friend: []
         }
+    }
+
+    componentDidMount() {
+        this.setState({
+            friend: this.props.friend
+        })
     }
 
     changeHandler = event => {
@@ -57,39 +63,40 @@ class NewFriendFrom extends React.Component {
         }))
     }
 
-    addFriend = event => {
+    updateFriend = event => {
         event.preventDefault()
-        this.props.addFriend(this.state.friend)
-        this.props.history.push("/")
+        this.props.updateFriend(this.state.friend)
     }
 
     render(){
+
+        const { name, age, email} = this.state.friend
         return(
-            <FormWrapper onSubmit={this.addFriend}>
+            <FormWrapper onSubmit={this.updateFriend}>
 
                 <StyledInput 
                 placeholder="Name"
                 name="name"
-                value={this.state.friend.name}
+                value={name}
                 onChange={this.changeHandler}
                 />
 
                 <StyledInput 
                 placeholder="Age"
                 name="age"
-                value={this.state.friend.age}
+                value={age}
                 onChange={this.changeHandler}
                 />
 
                 <StyledInput
                 placeholder="email" 
                 name="email"
-                value={this.state.friend.email}
+                value={email}
                 onChange={this.changeHandler}
                 />
 
                 <StyledButton>
-                    Add New Friend
+                    Update
                 </StyledButton>
 
             </FormWrapper>
@@ -97,4 +104,4 @@ class NewFriendFrom extends React.Component {
     }
 }
 
-export default NewFriendFrom;
+export default UpdateFriendFrom;

@@ -5,6 +5,7 @@ import Friends from './Components/Friends/Friends';
 import Friend from './Components/Friends/Friend';
 import NewFriendForm from './Components/Friends/NewFriendForm';
 import { Link, Route, withRouter } from 'react-router-dom';
+import UpdateFriendForm from './Components/Friends/UpdateForm';
 
 class App extends React.Component {
   constructor(props) {
@@ -37,9 +38,9 @@ class App extends React.Component {
       .post('http://localhost:5000/friends', item) 
       .then(response => {
         console.log(response)
-        // this.setState({
-        //   friends: response.data
-        // })
+        this.setState({
+          friends: response.data
+        })
       })
       .catch(error => {
         console.log(error)
@@ -52,31 +53,79 @@ class App extends React.Component {
     })
   }
 
+  updateFriend = updatedFriend => {
+    axios
+    .put(`http://localhost:5000/friends/${updatedFriend.id}`, updatedFriend) 
+    .then(response => {
+      this.setState({ friends: response.data})
+      this.props.history.push("/")
+      console.log(response)
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  }
+
+  deleteFriend = id => {
+    axios
+    .delete(`http://localhost:5000/friends/${id}`)
+    .then(response => {
+      console.log(response)
+      this.props.history.push(`/`)
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  }
+
   render() {
     return (
       <>
-      <Link 
+      <Link style={{paddingLeft: "2%", textDecoration: "none", fontSize: "2em", color: "orange",
+      textShadow: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black"}}
+      to="/">
+      Home
+      </Link>
+
+      <Link style={{paddingLeft: "5%", textDecoration: "none", fontSize: "2em", color: "orange",  textShadow: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black"}}
       to="/addFriend">
       Add A Friend
       </Link>
 
+      <hr/>
+
       <Route 
       exact path="/"
-      render={props => <Friends {...props}friendList={this.state.friends} 
+      render={props => <Friends {...props}
+      friendList={this.state.friends} 
       setActiveFriend={this.setActiveFriend}
+      deleteFriend={this.deleteFriend}
       />} 
         />
 
       <Route 
       path="/addFriend" 
-      render={props => <NewFriendForm {...props} addFriend={this.addFriend} />}
+      render={props => <div style={{width: "100%", display: "flex", justifyContent: "center"}}><NewFriendForm {...props} addFriend={this.addFriend} /></div>}
        />
 
       <Route 
       path="/friends/:id" 
-      render={props => <Friend {...props} friend={this.state.activeFriend} setActiveFriend={this.setActiveFriend}
-      />}
+      render={props => <div style={{width: "100%", display: "flex", justifyContent: "center"}}><Friend {...props} 
+      friend={this.state.activeFriend} 
+      setActiveFriend={this.setActiveFriend} 
+      deleteFriend={this.deleteFriend}
+      /></div>}
        />
+
+      <Route
+      path="/update-form"
+      render={props => 
+        <div style={{width: "100%", display: "flex", justifyContent: "center"}}><UpdateFriendForm {...props} 
+      updateFriend={this.updateFriend}
+      friend={this.state.activeFriend} 
+      /></div>}
+        />
+
       </>
     );
   }
