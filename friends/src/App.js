@@ -15,6 +15,7 @@ class App extends React.Component {
       activeFriend: {
         name: "test",
         age: 5,
+        userImage: "https://scontent-den4-1.xx.fbcdn.net/v/t1.0-1/16196015_10154888128487744_6901111466535510271_n.png?_nc_cat=103&_nc_ht=scontent-den4-1.xx&oh=25a3f748cc51a082764dfe2e5cbe48d2&oe=5D6A8059",
         email: "test"
       }
     }

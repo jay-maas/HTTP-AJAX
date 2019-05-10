@@ -12,9 +12,6 @@ const FriendWrapper = styled.div`
     border: 1px solid lightgrey;
     background: rgba(46, 49, 49, 1);
     color: rgba(232, 236, 241, 1);
-    &:hover {
-        box-shadow: 10px 10px 56px 12px rgba(211, 84, 0, 1);
-    }
 `
 
 const NameWrapper = styled.div`
@@ -67,13 +64,16 @@ class Friend extends React.Component {
     }
 
     render(){
-        const {age, email, name, id} = this.props.friend
+        const {age, email, name, id, userImage, color } = this.props.friend
         return(
-            <FriendWrapper>
+            <FriendWrapper style={{
+        boxShadow: `10px 10px 56px 12px     ${color}`
+    }}>
             <Link
             onClick={this.clickHandler} 
             exact to={`/friends/${id}`}
             style={{color: "white", textDecoration: "none"}}>
+            <img style={{width: "25vw", height: "25vw", borderRadius: "50%"}}src={userImage} alt={`${name}'s image`} />
             <NameWrapper>{name}</NameWrapper></Link>
             <AgeWrapper>Age: {age}</AgeWrapper>
             <EmailWrapper>email: {email}</EmailWrapper>

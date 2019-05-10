@@ -70,7 +70,7 @@ class UpdateFriendFrom extends React.Component {
 
     render(){
 
-        const { name, age, email} = this.state.friend
+        const { name, age, email, userImage, color } = this.state.friend
         return(
             <FormWrapper onSubmit={this.updateFriend}>
 
@@ -78,6 +78,13 @@ class UpdateFriendFrom extends React.Component {
                 placeholder="Name"
                 name="name"
                 value={name}
+                onChange={this.changeHandler}
+                />
+
+                <StyledInput 
+                placeholder="User Image"
+                name="name"
+                value={userImage}
                 onChange={this.changeHandler}
                 />
 
@@ -92,6 +99,13 @@ class UpdateFriendFrom extends React.Component {
                 placeholder="email" 
                 name="email"
                 value={email}
+                onChange={this.changeHandler}
+                />
+
+                <StyledInput
+                placeholder="color" 
+                name="color"
+                value={color}
                 onChange={this.changeHandler}
                 />
 

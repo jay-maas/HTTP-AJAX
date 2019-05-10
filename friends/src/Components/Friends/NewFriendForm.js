@@ -37,6 +37,7 @@ class NewFriendFrom extends React.Component {
     state ={
         friend: {
             name: "",
+            userImage: "",
             age: "",
             email: ""
         }
@@ -64,27 +65,42 @@ class NewFriendFrom extends React.Component {
     }
 
     render(){
+        const {name, userImage, age, email, color} = this.state.friend
         return(
             <FormWrapper onSubmit={this.addFriend}>
 
                 <StyledInput 
                 placeholder="Name"
                 name="name"
-                value={this.state.friend.name}
+                value={name}
+                onChange={this.changeHandler}
+                />
+
+                <StyledInput 
+                placeholder="User Image"
+                name="userImage"
+                value={userImage}
                 onChange={this.changeHandler}
                 />
 
                 <StyledInput 
                 placeholder="Age"
                 name="age"
-                value={this.state.friend.age}
+                value={age}
                 onChange={this.changeHandler}
                 />
 
                 <StyledInput
                 placeholder="email" 
                 name="email"
-                value={this.state.friend.email}
+                value={email}
+                onChange={this.changeHandler}
+                />
+
+                <StyledInput
+                placeholder="color" 
+                name="color"
+                value={color}
                 onChange={this.changeHandler}
                 />
 
