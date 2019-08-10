@@ -17,7 +17,9 @@ class Friends extends React.Component{
         return(
             <FriendsWrapper>
             {friendList&&friendList.map((friend, i) => 
-                <Friend key={i}friend={friend} />
+                <Friend 
+                setActiveFriend={this.props.setActiveFriend}
+                key={i}friend={friend} deleteFriend={this.props.deleteFriend}/>
             )}
             </FriendsWrapper>
         )

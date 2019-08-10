@@ -14,6 +14,8 @@ Topics:
 1.  CD into `friends` and run `yarn add axios react-router-dom` or `npm install --save axios react-router-dom` to include those dependencies in your project. _You'll need react router for the stretch problems_
 1.  CD into `friends` and run `yarn start or npm start` to fire up your React Dev Server.
 1.  Inside your React application, create a component to display the list of friends coming from the server.
+
+
 1.  Add a foormation rm to gather infabout a new friend.
 1.  Add a button to save the new friend by making a `POST` request to the same endpoint listed above.
 1.  Each `friend` should have the properties listed below.
@@ -34,7 +36,7 @@ For reference,
 
 ## Stretch Problems
 
-1.  Separate the list of friends and the new friend form into different components, and use the appropriate React Router to build routes for the proper aspects of your components to be revealed separately.
+1.  Separate the list of friends and the new friend form into different components, and use the appropriate React Router to build routes for the proper aspects of your compyonents to be revealed separatel.
 1.  Style the friends list, the input field, and make everything look nice.
 1.  Expand the number of properties that you put on each friend object.
 1.  Feel free to remove the dummy data on the server or modify it in any way.

@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link, Route } from 'react-router-dom';
+import axios from 'axios';
 
 const FriendWrapper = styled.div`
     width: 50%;
@@ -10,9 +12,6 @@ const FriendWrapper = styled.div`
     border: 1px solid lightgrey;
     background: rgba(46, 49, 49, 1);
     color: rgba(232, 236, 241, 1);
-    &:hover {
-        box-shadow: 10px 10px 56px 12px rgba(211, 84, 0, 1);
-    }
 `
 
 const NameWrapper = styled.div`
@@ -39,14 +38,50 @@ const EmailWrapper = styled.div`
     }
 `
 
+const StyledButton = styled.button`
+    border-radius: 25px;
+    border: 1px dashed black;
+    width: 30vw;
+    height: auto;
+    background: blue;
+    color: white;
+    font-size: 1.5em;
+    margin: 5%;
+`
+
 class Friend extends React.Component {
+    clickHandler = () => {
+        let friend = this.props.friend
+        console.log(friend)
+        this.props.setActiveFriend(friend)
+    }
+
+    deleteFriend = event => {
+        event.preventDefault()
+        console.log(event.target.id)
+        this.props.deleteFriend(event.target.id)
+        window.location.reload()
+    }
+
     render(){
-        const {age, email, name} = this.props.friend
+        const {age, email, name, id, userImage, color } = this.props.friend
         return(
-            <FriendWrapper>
-            <NameWrapper>{name}</NameWrapper>
+            <FriendWrapper style={{
+        boxShadow: `10px 10px 56px 12px     ${color}`
+    }}>
+            <Link
+            onClick={this.clickHandler} 
+            exact to={`/friends/${id}`}
+            style={{color: "white", textDecoration: "none"}}>
+            <img style={{width: "25vw", height: "25vw", borderRadius: "50%"}}src={userImage} alt={`${name}'s image`} />
+            <NameWrapper>{name}</NameWrapper></Link>
             <AgeWrapper>Age: {age}</AgeWrapper>
             <EmailWrapper>email: {email}</EmailWrapper>
+            <Link 
+            exact to={'/update-form'}
+            onClick={this.clickHandler}
+            ><StyledButton>Update Friend</StyledButton></Link>
+            <StyledButton onClick={this.deleteFriend} id={id}>Delete Friend</StyledButton>
             </FriendWrapper>
         )
     }
